@@ -3,7 +3,7 @@ library(devtools)
 library(tibble)
 
 #Creating tibble Dataframe
-query_urlt <- 
+query_url <- 
   tribble(
     # Column Names
     ~id, ~indicator, ~nation, ~date, ~license, ~query, ~source,
