@@ -100,7 +100,7 @@ rtt_relative <-
   )
 
 # Filter to only open trusts
-england_nhs_england_referral_treatment_waiting_times <-
+referral_treatment_waiting_times <-
   open_trusts |>
   left_join(
     rtt_relative,
@@ -115,5 +115,4 @@ england_nhs_england_referral_treatment_waiting_times <-
 #   )
 
 # Save
-england_nhs_england_referral_treatment_waiting_times |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-referral-treatment-waiting-times.rds")
+usethis::usedata(referral_treatment_waiting_times, internal = TRUE, overwrite = TRUE)
