@@ -21,12 +21,17 @@ open_trusts <-
   )
 
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Full-CSV-data-file-Apr22-ZIP-3300K-57873-1.zip",
-  write_disk(tf <- tempfile(fileext = ".zip"))
-)
+#GET(
+#  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Full-CSV-data-file-Apr22-ZIP-3300K-57873-1.zip",
+#  write_disk(tf <- tempfile(fileext = ".zip"))
+#)
 
-unzip(tf, exdir = tempdir())
+tf <-
+    query_url |>
+    filter(id == "referral_to_treatment_waiting_times")|>
+    pull(query)
+
+#unzip(tf, exdir = tempdir())
 
 raw <-
   read_csv(
@@ -100,7 +105,7 @@ rtt_relative <-
   )
 
 # Filter to only open trusts
-england_nhs_england_referral_treatment_waiting_times <-
+england_nhs_referral_treatment_waiting_times <-
   open_trusts |>
   left_join(
     rtt_relative,
@@ -115,5 +120,4 @@ england_nhs_england_referral_treatment_waiting_times <-
 #   )
 
 # Save
-england_nhs_england_referral_treatment_waiting_times |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-referral-treatment-waiting-times.rds")
+usethis::use_data(england_nhs_referral_treatment_waiting_times, overwrite = TRUE)

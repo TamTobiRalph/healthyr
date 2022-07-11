@@ -21,10 +21,10 @@ open_trusts <-
   )
 
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Cancer-Waiting-Times-Apr-Apr-2022-Data-Extract-Provider.xlsx",
-  write_disk(tf <- tempfile(fileext = ".xlsx"))
-)
+  tf <-
+    query_url |>
+    filter(id == "cancer_wait_times")|>
+    pull(query)
 
 raw <-
   read_excel(tf)
@@ -89,7 +89,7 @@ cancer_wait_times_rounded <-
   )
 
 # Filter to only open trusts
-england_nhs_england_cancer_wait_times <-
+england_nhs_cancer_wait_times <-
   open_trusts |>
   left_join(
     cancer_wait_times_rounded,
@@ -97,5 +97,4 @@ england_nhs_england_cancer_wait_times <-
   )
 
 # Save
-england_nhs_england_cancer_wait_times |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-cancer-wait-times.rds")
+usethis::use_data(england_nhs_cancer_wait_times, overwrite = TRUE)

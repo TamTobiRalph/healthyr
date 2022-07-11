@@ -1,5 +1,5 @@
 # Install packages
-# install.packages("janitor")
+#install.packages("janitor")
 
 # Load libs
 library(tidyverse)
@@ -24,10 +24,11 @@ open_trusts <-
   )
 
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/AmbSYS-for-May22.xlsx",
-  write_disk(tf <- tempfile(fileext = ".xlsx"))
-)
+  tf <-
+    query_url |>
+    filter(id == "ambulance_quality_indicator")|>
+    pull(query)
+
 
 # column names and types to use for loading all data
 ambo_colnames <-
@@ -132,7 +133,7 @@ eng_ambo_dates <-
   )
 
 # Filter to only open trusts
-england_nhs_england_ambulance_quality_indicators <-
+england_nhs_ambulance_quality_indicators <-
   open_trusts |>
   left_join(
     eng_ambo_dates,
@@ -140,5 +141,4 @@ england_nhs_england_ambulance_quality_indicators <-
   )
 
 # Save
-england_nhs_england_ambulance_quality_indicators |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-ambulance-quality-indicators.rds")
+usethis::use_data(england_nhs_ambulance_quality_indicators, overwrite = TRUE)

@@ -92,10 +92,11 @@ beds_day <-
 
 # ---- Night ----
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/05/Beds-Open-Overnight-Web_File-Q4-2021-22-Final-OIUJK.xlsx",
-  write_disk(tf <- tempfile(fileext = ".xlsx"))
-)
+
+  tf <-
+    query_url |>
+    filter(id == "bed_occupancy_day")|>
+    pull(query)
 
 raw_night <-
   read_excel(
@@ -163,10 +164,9 @@ beds_night <-
 #   )
 
 # ---- Join ----
-england_nhs_england_bed_occupancy <-
+england_nhs_bed_occupancy <-
   beds_day |>
   left_join(beds_night, by = "Trust Code")
 
 # ---- Save ----
-england_nhs_england_bed_occupancy |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-bed-occupancy.rds")
+usethis::use_data(england_nhs_bed_occupancy, overwrite = TRUE)
