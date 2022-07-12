@@ -4,6 +4,10 @@ library(httr)
 library(readxl)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -20,10 +24,16 @@ open_trusts <-
   )
 
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Monthly-Diagnostics-Web-File-Provider-April-2022_OT07W.xls",
-  write_disk(tf <- tempfile(fileext = ".xls"))
-)
+  qu <-
+    query_url |>
+    filter(id == "diagnostic_wait_times")|>
+    pull(query)
+
+  GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
+
 
 raw <-
   read_excel(
@@ -56,7 +66,7 @@ diagnostics_scores <-
   )
 
 # Filter to only open trusts
-england_nhs_england_diagnostic_wait_times <-
+england_nhs_diagnostic_wait_times <-
   open_trusts |>
   left_join(
     diagnostics_scores,
@@ -71,5 +81,4 @@ england_nhs_england_diagnostic_wait_times <-
 #   )
 
 # Save
-england_nhs_england_diagnostic_wait_times |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-diagnostic-wait-times.rds")
+usethis::use_data(england_nhs_diagnostic_wait_times, overwrite = TRUE)

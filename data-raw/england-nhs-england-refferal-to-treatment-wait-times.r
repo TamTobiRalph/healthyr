@@ -5,6 +5,10 @@ library(readxl)
 library(janitor)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -21,21 +25,37 @@ open_trusts <-
   )
 
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Full-CSV-data-file-Apr22-ZIP-3300K-57873-1.zip",
-  write_disk(tf <- tempfile(fileext = ".zip"))
-)
+#GET(
+#  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Full-CSV-data-file-Apr22-ZIP-3300K-57873-1.zip",
+#  write_disk(tf <- tempfile(fileext = ".zip"))
+#)
+qu <-
+    query_url |>
+    filter(id == "referral_to_treatment_waiting_times")|>
+    pull(query)
 
-unzip(tf, exdir = tempdir())
+GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
+
+#unzip(tf, exdir = tempdir())
 
 raw <-
-  read_csv(
-    list.files(
-      tempdir(),
-      pattern = ".*RTT.*.csv",
-      full.names = TRUE
-    )
+  read_excel(
+    tf,
+    sheet = "Provider",
+    skip = 13
   )
+
+#raw <-
+#  read_csv(
+#    list.files(
+#     tempdir(),
+#      pattern = ".*RTT.*.csv",
+#      full.names = TRUE
+#   )
+#  )
 
 # Clean names
 rtt_clean_names <-
@@ -100,7 +120,7 @@ rtt_relative <-
   )
 
 # Filter to only open trusts
-england_nhs_england_referral_treatment_waiting_times <-
+england_nhs_referral_treatment_waiting_times <-
   open_trusts |>
   left_join(
     rtt_relative,
@@ -115,5 +135,4 @@ england_nhs_england_referral_treatment_waiting_times <-
 #   )
 
 # Save
-england_nhs_england_referral_treatment_waiting_times |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-referral-treatment-waiting-times.rds")
+usethis::use_data(england_nhs_referral_treatment_waiting_times, overwrite = TRUE)

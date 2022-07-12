@@ -5,6 +5,10 @@ library(readxl)
 library(janitor)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -21,10 +25,21 @@ open_trusts <-
   )
 
 # Load raw data
+#GET(
+#  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/MRR_Prov-Web-file-April-22-O1L87D.xls",
+#  write_disk(tf <- tempfile(fileext = ".xls"))
+#)
+
+tf <-
+    query_url |>
+    filter(id == "outpatient_referrals")|>
+    pull(query)
+
 GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/MRR_Prov-Web-file-April-22-O1L87D.xls",
-  write_disk(tf <- tempfile(fileext = ".xls"))
-)
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
+
 
 raw <-
   read_excel(
@@ -55,7 +70,7 @@ outpatient_vars <-
   )
 
 # Filter to only open trusts
-england_nhs_england_outpatient_referrals <-
+england_nhs_outpatient_referrals <-
   open_trusts |>
   left_join(
     outpatient_vars,
@@ -70,5 +85,4 @@ england_nhs_england_outpatient_referrals <-
 #   )
 
 # Save
-england_nhs_england_outpatient_referrals |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-outpatient-referrals.rds")
+usethis::use_data(england_nhs_outpatient_referrals, overwrite = TRUE)

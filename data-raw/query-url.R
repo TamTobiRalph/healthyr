@@ -1,4 +1,4 @@
-# LOADING NECESSARY LIBRARY
+# LOADNG NECESSARY LIBRARY
 library(devtools)
 library(tibble)
 
@@ -8,29 +8,37 @@ query_url <-
     # Column Names
     ~id, ~indicator, ~nation, ~date, ~license, ~query, ~source,
     
-    #Entries
-    "1", "A&E", "England", "May 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/", "NHS England",
-    "2", "Ambulance Quality Indicators", "England", "May 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/ambulance-quality-indicators/", "NHS England",
-    "3", "Bed Occupancy (Day & Night)", "England", "March 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/", "NHS England",
-    "4", "Cancer Wait Times", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/cancer-waiting-times/", "NHS England",
-    "5", "Diagnostic Wait Times", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/diagnostics-waiting-times-and-activity/", "NHS England",
-    "6", "Outpatient Referrals", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/outpatient-referrals/", "NHS England",
-    "7", "Referral to Treatment Waiting Times", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/", "NHS England",
-    "8", "IAPT", "England", "Q4 2021-22", "OGLv3", "https://digital.nhs.uk/data-and-information/publications/statistical/psychological-therapies-report-on-the-use-of-iapt-services/june-2021-final-including-reports-on-the-iapt-pilots-and-quarter-1-data-2021-22", "NHS England",
-    "9", "A&E", "Northern Ireland", "March 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/emergency-care-waiting-times", "Department of Health",
-    "10", "Reattendance", "Northern Ireland", "2022-2021", "OGLv3", "https://www.health-ni.gov.uk/articles/emergency-care-and-ambulance-statistics", "Department of Health",
-    "11", "Cancer Waiting List", "Northern Ireland", "December 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/cancer-waiting-times", "Department of Health",
-    "12", "Outpatient Waiting Times", "Northern Ireland", "March 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/outpatient-waiting-times", "Department of Health",
-    "13", "Ipatient Waiting Times", "Northern Ireland", "March 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/inpatient-waiting-times", "Department of Health",
-    "14", "A&E", "Scotland", "June 2022", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
-    "15", "Bed Availability", "Scotland", "December 2021", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
-    "16", "Cancer Waiting Times", "Scotland", "June 2021", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
-    "17", "Delayed Transfer of Care", "Scotland", "April 2022", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
-    "18", "Referral to Treatment Waiting Times", "Scotland", "March  2022", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
-    "19", "A&E", "Wales", "April 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Waiting-Times/Accident-and-Emergency", "StatsWales",
-    "20", "Bed Availabilty", "Wales", "June 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Activity/nhs-activity-and-capacity-during-the-coronavirus-pandemic/nhsbeds-by-date-localhealthboard", "StatsWales",
-    "21", "Ambulance Services", "Wales", "April 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Performance/Ambulance-Services", "StatsWales",
-    "22", "Cancer Waiting Times", "Wales", "March 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Waiting-Times/Cancer-Waiting-Times/Monthly/suspectedcancerpathwayclosedpathways-by-localhealthboard-tumoursite-agegroup-gender-measure-month", "StatsWales",
-    "23", "Referral to Treatment Waiting Times", "Wales", "March 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Waiting-Times/Referral-to-Treatment/patientpathwayswaitingtostarttreatment-by-month-groupedweeks-treatmentfunction", "StatsWales",
+#Entries
+    "a_e", "A&E", "England", "May 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/May-2022-AE-by-provider-a5cdd.xls", "https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/",
+    "ambulance_quality_indicator", "Ambulance Quality Indicators", "England", "May 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/AmbSYS-for-May22.xlsx", "https://www.england.nhs.uk/statistics/statistical-work-areas/ambulance-quality-indicators/",
+    "bed_occupancy_day", "Bed Occupancy (Day)", "England", "March 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/05/Beds-Open-Day-Only-Web_File-Q4-2021-22-Final-OIUJK.xlsx", "https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/",
+    "bed_occupancy_night", "Bed Occupancy (Night)", "England", "March 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/05/Beds-Open-Overnight-Web_File-Q4-2021-22-Final-OIUJK.xlsx", "https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/",
+    "cancer_wait_times", "Cancer Wait Times", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Cancer-Waiting-Times-Apr-Apr-2022-Data-Extract-Provider.xlsx", "https://www.england.nhs.uk/statistics/statistical-work-areas/cancer-waiting-times/",
+    "diagnostic_wait_times", "Diagnostic Wait Times", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Monthly-Diagnostics-Web-File-Provider-April-2022_OT07W.xls", "https://www.england.nhs.uk/statistics/statistical-work-areas/diagnostics-waiting-times-and-activity/",
+    "outpatient_referrals", "Outpatient Referrals", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/MRR_Prov-Web-file-April-22-O1L87D.xls", "https://www.england.nhs.uk/statistics/statistical-work-areas/outpatient-referrals/",
+    "referral_to_treatment_waiting_times", "Referral to Treatment Waiting Times", "England", "April 2022", "OGLv3", "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Admitted-Provider-Apr22-XLS-8572K-57873.xls", "https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/",
+    #"8", "IAPT", "England", "Q4 2021-22", "OGLv3", "https://digital.nhs.uk/data-and-information/publications/statistical/psychological-therapies-report-on-the-use-of-iapt-services/june-2021-final-including-reports-on-the-iapt-pilots-and-quarter-1-data-2021-22",
+    #"9", "A&E", "Northern Ireland", "March 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/emergency-care-waiting-times", "Department of Health",
+    #"10", "Reattendance", "Northern Ireland", "2022-2021", "OGLv3", "https://www.health-ni.gov.uk/articles/emergency-care-and-ambulance-statistics", "Department of Health",
+    #"11", "Cancer Waiting List", "Northern Ireland", "December 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/cancer-waiting-times", "Department of Health",
+    #"12", "Outpatient Waiting Times", "Northern Ireland", "March 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/outpatient-waiting-times", "Department of Health",
+    #"13", "Ipatient Waiting Times", "Northern Ireland", "March 2022", "OGLv3", "https://www.health-ni.gov.uk/articles/inpatient-waiting-times", "Department of Health",
+    #"14", "A&E", "Scotland", "June 2022", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
+    #"15", "Bed Availability", "Scotland", "December 2021", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
+    #"16", "Cancer Waiting Times", "Scotland", "June 2021", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
+    #"17", "Delayed Transfer of Care", "Scotland", "April 2022", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
+    #"18", "Referral to Treatment Waiting Times", "Scotland", "March  2022", "Written permission received", "https://www.nhsperforms.scot/", "NHS Performs",
+    #"19", "A&E", "Wales", "April 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Waiting-Times/Accident-and-Emergency", "StatsWales",
+    #"20", "Bed Availabilty", "Wales", "June 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Activity/nhs-activity-and-capacity-during-the-coronavirus-pandemic/nhsbeds-by-date-localhealthboard", "StatsWales",
+    #"21", "Ambulance Services", "Wales", "April 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Performance/Ambulance-Services", "StatsWales",
+    #"22", "Cancer Waiting Times", "Wales", "March 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Waiting-Times/Cancer-Waiting-Times/Monthly/suspectedcancerpathwayclosedpathways-by-localhealthboard-tumoursite-agegroup-gender-measure-month", "StatsWales",
+    #"23", "Referral to Treatment Waiting Times", "Wales", "March 2022", "OGLv3", "https://statswales.gov.wales/Catalogue/Health-and-Social-Care/NHS-Hospital-Waiting-Times/Referral-to-Treatment/patientpathwayswaitingtostarttreatment-by-month-groupedweeks-treatmentfunction", "StatsWales",
     
+
+    # The links to the various queries can be found here = https://github.com/britishredcrosssociety/nhs-capacity/tree/main/preprocess
   )
+
+usethis::use_data(query_url, internal = TRUE, overwrite = TRUE)
+
+
+

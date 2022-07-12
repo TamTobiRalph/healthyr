@@ -4,6 +4,10 @@ library(httr)
 library(readxl)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -21,10 +25,15 @@ open_trusts <-
 
 # ---- Day ----
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/05/Beds-Open-Day-Only-Web_File-Q4-2021-22-Final-OIUJK.xlsx",
-  write_disk(tf <- tempfile(fileext = ".xlsx"))
-)
+  qu <-
+    query_url |>
+    filter(id == "bed_occupancy_day")|>
+    pull(query)
+  
+  GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xlsx"))
+  )
 
 raw_day <-
   read_excel(
@@ -92,10 +101,16 @@ beds_day <-
 
 # ---- Night ----
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/05/Beds-Open-Overnight-Web_File-Q4-2021-22-Final-OIUJK.xlsx",
-  write_disk(tf <- tempfile(fileext = ".xlsx"))
-)
+
+  qud <-
+    query_url |>
+    filter(id == "bed_occupancy_night")|>
+    pull(query)
+  
+  GET(
+    qud,
+    write_disk(tf <- tempfile(fileext = ".xlsx"))
+  )
 
 raw_night <-
   read_excel(
@@ -163,10 +178,9 @@ beds_night <-
 #   )
 
 # ---- Join ----
-england_nhs_england_bed_occupancy <-
+england_nhs_bed_occupancy <-
   beds_day |>
   left_join(beds_night, by = "Trust Code")
 
 # ---- Save ----
-england_nhs_england_bed_occupancy |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-bed-occupancy.rds")
+usethis::use_data(england_nhs_bed_occupancy, overwrite = TRUE)

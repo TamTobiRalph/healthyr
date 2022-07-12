@@ -4,6 +4,10 @@ library(httr)
 library(readxl)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -20,10 +24,15 @@ open_trusts <-
   )
 
 # Load raw data
-GET(
-  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/May-2022-AE-by-provider-a5cdd.xls",
-  write_disk(tf <- tempfile(fileext = ".xls"))
-)
+  qu <-
+    query_url |>
+    filter(id == "a_e")|>
+    pull(query)
+  
+  GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
 
 raw <-
   read_excel(
@@ -81,7 +90,7 @@ ae_double <-
   )
 
 # Filter to only open trusts
-england_nhs_england_ae <-
+england_nhs_ae <-
   open_trusts |>
   left_join(
     ae_double,
@@ -96,5 +105,4 @@ england_nhs_england_ae <-
 #   )
 
 # Save
-england_nhs_england_ae |>
-  write_rds("c:/Users/de/Desktop/healthyr/data/england-nhs-england-a&e.rds")
+usethis::use_data(england_nhs_ae, overwrite = TRUE)
