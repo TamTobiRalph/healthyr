@@ -5,6 +5,10 @@ library(readxl)
 library(janitor)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -30,6 +34,12 @@ tf <-
     query_url |>
     filter(id == "outpatient_referrals")|>
     pull(query)
+
+GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
+
 
 raw <-
   read_excel(
