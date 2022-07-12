@@ -5,6 +5,10 @@ library(readxl)
 library(janitor)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -25,22 +29,33 @@ open_trusts <-
 #  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Full-CSV-data-file-Apr22-ZIP-3300K-57873-1.zip",
 #  write_disk(tf <- tempfile(fileext = ".zip"))
 #)
-
-tf <-
+qu <-
     query_url |>
     filter(id == "referral_to_treatment_waiting_times")|>
     pull(query)
 
+GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
+
 #unzip(tf, exdir = tempdir())
 
 raw <-
-  read_csv(
-    list.files(
-      tempdir(),
-      pattern = ".*RTT.*.csv",
-      full.names = TRUE
-    )
+  read_excel(
+    tf,
+    sheet = "Provider",
+    skip = 13
   )
+
+#raw <-
+#  read_csv(
+#    list.files(
+#     tempdir(),
+#      pattern = ".*RTT.*.csv",
+#      full.names = TRUE
+#   )
+#  )
 
 # Clean names
 rtt_clean_names <-

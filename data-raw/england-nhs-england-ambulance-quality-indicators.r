@@ -1,6 +1,3 @@
-# Install packages
-#install.packages("janitor")
-
 # Load libs
 library(tidyverse)
 library(httr)
@@ -8,6 +5,10 @@ library(readxl)
 library(janitor)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -24,10 +25,15 @@ open_trusts <-
   )
 
 # Load raw data
-  tf <-
+  qu <-
     query_url |>
     filter(id == "ambulance_quality_indicator")|>
     pull(query)
+
+ GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xlsx"))
+  )
 
 
 # column names and types to use for loading all data

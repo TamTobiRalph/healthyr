@@ -4,6 +4,10 @@ library(httr)
 library(readxl)
 library(sf)
 library(geographr)
+library(devtools)
+
+# Load our sysdata(query_url data) from R folder
+load_all(".")
 
 # Create trust lookup of open trusts
 open_trusts <-
@@ -20,17 +24,16 @@ open_trusts <-
   )
 
 # Load raw data
-#GET(
-#  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Monthly-Diagnostics-Web-File-Provider-April-2022_OT07W.xls",
-#  write_disk(tf <- tempfile(fileext = ".xls"))
-#)
-
-tf <-
+  qu <-
     query_url |>
     filter(id == "diagnostic_wait_times")|>
     pull(query)
 
-#write_disk(tf <- tempfile(fileext = ".xls"))
+  GET(
+    qu,
+    write_disk(tf <- tempfile(fileext = ".xls"))
+  )
+
 
 raw <-
   read_excel(
