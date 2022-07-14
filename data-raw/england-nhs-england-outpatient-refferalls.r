@@ -30,7 +30,7 @@ open_trusts <-
 #  write_disk(tf <- tempfile(fileext = ".xls"))
 #)
 
-tf <-
+qu <-
     query_url |>
     filter(id == "outpatient_referrals")|>
     pull(query)
