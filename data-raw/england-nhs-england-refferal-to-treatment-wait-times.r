@@ -25,10 +25,7 @@ open_trusts <-
   )
 
 # Load raw data
-#GET(
-#  "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2022/06/Full-CSV-data-file-Apr22-ZIP-3300K-57873-1.zip",
-#  write_disk(tf <- tempfile(fileext = ".zip"))
-#)
+
 qu <-
     query_url |>
     filter(id == "referral_to_treatment_waiting_times")|>
@@ -36,26 +33,19 @@ qu <-
 
 GET(
     qu,
-    write_disk(tf <- tempfile(fileext = ".xls"))
+    write_disk(tf <- tempfile(fileext = ".zip"))
   )
 
-#unzip(tf, exdir = tempdir())
+unzip(tf, exdir = tempdir())
 
 raw <-
-  read_excel(
-    tf,
-    sheet = "Provider",
-    skip = 13
+  read_csv(
+    list.files(
+     tempdir(),
+      pattern = ".*RTT.*.csv",
+      full.names = TRUE
+   )
   )
-
-#raw <-
-#  read_csv(
-#    list.files(
-#     tempdir(),
-#      pattern = ".*RTT.*.csv",
-#      full.names = TRUE
-#   )
-#  )
 
 # Clean names
 rtt_clean_names <-
