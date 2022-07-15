@@ -124,6 +124,66 @@
 
 "england_nhs_diagnostic_wait_times"
 
+ 
+#' Improving Access to Psychological Therapies (IAPT)
+#'
+#' This data set contains the referrals patients that have finished a course of treatment in the
+#' month waiting 126 days or less for first treatment.
+#' 
+#' 
+#' @format A tibble data frame with 42 rows and 2 variables:
+#' \describe{
+#'   \item{stp_code_short}{stp_code_short   }
+#'   \item{Referrals that finished a course of treatment in the month waiting 126 days or less for first treatment}{Referrals that finished a course of treatment in the month waiting 126 days or less for first treatment}
+#'   
+#'   ....
+#' 
+#' }
+#' @source \url{https://digital.nhs.uk/data-and-information/publications/statistical/psychological-therapies-report-on-the-use-of-iapt-services/june-2021-final-including-reports-on-the-iapt-pilots-and-quarter-1-data-2021-22}
+
+"england_nhs_iapt"
+
+#' Outpatient Referrals Data
+#'
+#' This data set contains data relating to GP and other referrals for first consultant-led 
+#' outpatient appointments focusing on all treatment functions and specific acute treatment functions.
+#'
+#' @format A tibble data frame with 212 rows and 6 variables:
+#' \describe{
+#'   \item{Trust_code}{Abbreviation for trust name}
+#'   \item{Trust_name}{Trust Name}
+#'   \item{GP Referrals Made (All)}{The total number of refferals made in all units by the GP}
+#'   \item{Other Referrals Made (All)}{The total number of refferals made in all units}
+#'   \item{GP Referrals Made (Specific Acute)}{The number of refferals made in Specific Acute unit by the GP}
+#'   \item{Other Referrals Made (Specific Acute)}{The number of refferals made in Specific Acute unit}
+#'   ...
+#' 
+#' }
+#' @source \url{https://www.england.nhs.uk/statistics/statistical-work-areas/outpatient-referrals/mrr-data/}
+
+"england_nhs_outpatient_referrals"
+
+#' Consultant-led Referral to Treatment Waiting Times
+#'
+#' This data set contains contains information on Consultant-led Referral To Treatment (RTT) waiting times,
+#' which monitor the length of time from referral through to elective treatment.
+#' 
+#' @format A tibble data frame with 824 rows and 8 variables:
+#' \describe{
+#'   \item{Trust_code}{Abbreviation for trust name}
+#'   \item{Trust_name}{Trust Name}
+#'   \item{Referral Treatment Type}{Waiting list of patients}
+#'   \item{Waiting 52+ Weeks}{Waiting list of patients for 52+ Weeks plus}
+#'   \item{Waiting 18+ weeks}{Waiting list of patients for 18+ Weeks plus}
+#'   \item{Total waiting list}{Total number of patients on the Waiting list}
+#'   \item{% Waiting 18+ weeks}{Percentage of the Waiting list of patients for 18+ Weeks plus}
+#'   \item{% Waiting 52+ weeks}{Percentage of theWaiting list of patients for 52+ Weeks plus}
+#'   ...
+#' 
+#' }
+#' @source \url{https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/rtt-data-2022-23/}
+
+"england_nhs_referral_treatment_waiting_times"
 
 
 
