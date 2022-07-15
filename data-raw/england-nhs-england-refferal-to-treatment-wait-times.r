@@ -1,3 +1,12 @@
+
+#' Add together two numbers
+#' 
+#' @param referral A data containing links.
+#' @return A dataset.
+#' @examples A data set that shows all the links
+
+devtools::document()
+
 # Load libs
 library(tidyverse)
 library(httr)

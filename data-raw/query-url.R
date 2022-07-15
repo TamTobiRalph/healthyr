@@ -42,3 +42,15 @@ usethis::use_data(query_url, internal = TRUE, overwrite = TRUE)
 
 
 
+
+#' Add together two numbers
+#' 
+#' @param query_url A data containing links.
+#' @return A dataset.
+#' @examples A data set that shows all the links
+
+roxygen2::roxygenise()  
+
+
+
+
